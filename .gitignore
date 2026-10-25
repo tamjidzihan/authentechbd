@@ -1,0 +1,102 @@
+# ==============================================================================
+# AuthenTech BD — Project Root .gitignore
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Dependencies
+# ------------------------------------------------------------------------------
+# Package manager dependency directories for root and sub-packages (e.g. client/)
+node_modules/
+client/node_modules/
+.pnp/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ------------------------------------------------------------------------------
+# Next.js Build Outputs & Caches
+# ------------------------------------------------------------------------------
+# Next.js production builds, cache directories, and static export artifacts
+.next/
+client/.next/
+out/
+client/out/
+build/
+client/build/
+dist/
+client/dist/
+
+# ------------------------------------------------------------------------------
+# Environment Variables & Secrets
+# ------------------------------------------------------------------------------
+# Keep API keys, credentials, and local environment configs out of version control
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# ------------------------------------------------------------------------------
+# Logs & Diagnostic Dumps
+# ------------------------------------------------------------------------------
+# Runtime, package manager, and process log files
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ------------------------------------------------------------------------------
+# Testing & Code Coverage
+# ------------------------------------------------------------------------------
+# Test execution reports and coverage directories
+coverage/
+client/coverage/
+.nyc_output/
+
+# ------------------------------------------------------------------------------
+# Operating System Files
+# ------------------------------------------------------------------------------
+# macOS and Windows system-generated metadata files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# ------------------------------------------------------------------------------
+# IDE & Code Editor Configurations
+# ------------------------------------------------------------------------------
+# Local editor workspaces, settings, and scratch directories
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ------------------------------------------------------------------------------
+# Hosting & Deployment Caches
+# ------------------------------------------------------------------------------
+# Vercel project configuration and local deployment caches
+.vercel/
+client/.vercel/
+
+# ------------------------------------------------------------------------------
+# TypeScript Artifacts
+# ------------------------------------------------------------------------------
+# TypeScript incremental build cache files
+*.tsbuildinfo
+client/next-env.d.ts
