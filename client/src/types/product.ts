@@ -35,6 +35,7 @@ export interface Product {
   condition: ProductCondition;
   inStock: boolean;
   stockCount?: number;
+  soldCount?: number;
   shortDescription: string;
   description: string;
   image: string;
@@ -42,12 +43,26 @@ export interface Product {
   keySpecs: string[];
   fullSpecs: ProductSpec[];
   warranty: string;
+  rating?: number;
+  reviewCount?: number;
   testingChecklist?: TestingChecklist;
   featured?: boolean;
   popular?: boolean;
+  isDeal?: boolean;
+  discountPercent?: number;
 }
 
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  image: string;
+  readTime: string;
+  excerpt: string;
 }
