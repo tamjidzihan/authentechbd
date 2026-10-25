@@ -1,103 +1,67 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { CATEGORIES } from '@/data/products';
-import {
-  Laptop,
-  Wifi,
-  Keyboard,
-  Mouse,
-  HardDrive,
-  Speaker,
-  Camera,
-  ArrowRight,
-} from 'lucide-react';
-
-const iconMap: Record<string, React.ReactNode> = {
-  Laptop: <Laptop className="w-6 h-6 text-violet-600" />,
-  Wifi: <Wifi className="w-6 h-6 text-blue-600" />,
-  Keyboard: <Keyboard className="w-6 h-6 text-emerald-600" />,
-  Mouse: <Mouse className="w-6 h-6 text-orange-600" />,
-  HardDrive: <HardDrive className="w-6 h-6 text-amber-600" />,
-  Speaker: <Speaker className="w-6 h-6 text-pink-600" />,
-  Camera: <Camera className="w-6 h-6 text-cyan-600" />,
-};
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function CategoryGrid() {
   return (
-    <section className="py-16 bg-white border-b border-slate-100">
+    <section className="py-12 bg-white border-b border-[#e0e6ef]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        {/* Section Header with Subtitle and Slider Arrows */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-6 border-b border-[#e0e6ef] mb-8 gap-4">
           <div>
-            <span className="text-xs font-bold text-violet-700 uppercase tracking-wider block mb-1">
-              Curated Catalog
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Explore by Category
+            <h2 className="text-xl sm:text-2xl font-black text-[#253d4e] tracking-tight">
+              Featured Categories
             </h2>
+            <p className="text-xs text-[#7e7e7e] mt-1">
+              Choose your verified technology products from our featured categories.
+            </p>
           </div>
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-violet-700 hover:text-violet-900 transition-colors"
-          >
-            <span>View All Products</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+
+          <div className="flex items-center gap-2">
+            <button
+              className="w-8 h-8 rounded-full border border-[#e0e6ef] bg-[#f4f6fa] hover:bg-[#2b38d1] hover:text-white flex items-center justify-center text-[#7e7e7e] transition-colors"
+              aria-label="Previous categories"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              className="w-8 h-8 rounded-full border border-[#e0e6ef] bg-[#f4f6fa] hover:bg-[#2b38d1] hover:text-white flex items-center justify-center text-[#7e7e7e] transition-colors"
+              aria-label="Next categories"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        {/* 7 Categories Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.id}
               href={`/products?category=${cat.id}`}
-              className={`group p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between hover:shadow-lg ${
-                cat.id === 'laptops'
-                  ? 'bg-linear-to-br from-violet-50/70 to-purple-50/40 border-violet-200/80 hover:border-violet-400'
-                  : 'bg-slate-50/70 hover:bg-white border-slate-200/70 hover:border-violet-300'
-              }`}
+              className="group p-4 rounded-2xl bg-white border border-[#e0e6ef] hover:border-[#2b38d1] text-center hover-up transition-all flex flex-col items-center justify-between"
             >
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-white shadow-xs border border-slate-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  {iconMap[cat.icon]}
-                </div>
-                <h3 className="text-sm font-bold text-slate-900 group-hover:text-violet-700 transition-colors mb-1">
-                  {cat.name}
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
-                  {cat.description}
-                </p>
+              <div className="w-16 h-16 rounded-full bg-[#f4f6fa] overflow-hidden relative mx-auto mb-3 flex items-center justify-center p-2 group-hover:scale-110 transition-transform">
+                <Image
+                  src={cat.image}
+                  alt={cat.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
-              <div className="pt-4 mt-3 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-violet-700">
-                <span>{cat.count} Items Available</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <div>
+                <h3 className="text-xs font-bold text-[#253d4e] group-hover:text-[#2b38d1] transition-colors leading-tight line-clamp-1">
+                  {cat.name}
+                </h3>
+                <p className="text-[11px] text-[#7e7e7e] mt-1 font-medium">
+                  {cat.count} items
+                </p>
               </div>
             </Link>
           ))}
-
-          {/* Sirajganj Store Info Card */}
-          <Link
-            href="/contact"
-            className="p-5 rounded-2xl bg-linear-to-br from-slate-900 to-slate-800 text-white flex flex-col justify-between shadow-md hover:shadow-xl transition-all"
-          >
-            <div>
-              <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center mb-4">
-                <span className="text-sm font-black text-orange-400">AT</span>
-              </div>
-              <h3 className="text-sm font-bold text-white mb-1">
-                Shahzadpur Store
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Siraj Plaza (3rd Floor), Monirampur Bazar. Visit for live hands-on testing!
-              </p>
-            </div>
-
-            <div className="pt-4 mt-3 border-t border-slate-700/80 flex items-center justify-between text-xs font-bold text-orange-400">
-              <span>Get Directions</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </div>
-          </Link>
         </div>
       </div>
     </section>

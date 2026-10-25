@@ -1,160 +1,251 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { STORE_INFO } from '@/data/products';
-import {
-  ShieldCheck,
-  ArrowRight,
-  MapPin,
-  Laptop,
-  CheckCircle,
-  Cpu,
-  BatteryCharging,
-} from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
+
+const slides = [
+  {
+    tag: 'NEW ARRIVAL',
+    discount: '-15%',
+    subtitle: 'AuthenTech Certified Business Laptop',
+    title: 'HP EliteBook 840 G8',
+    bullets: [
+      '14.0" FHD IPS Anti-Glare 400 nits',
+      'Intel Core i5-1135G7 • 16GB RAM',
+      '89% Verified Battery Health • Tested Lab',
+    ],
+    price: '৳48,500',
+    originalPrice: '৳53,000',
+    link: '/products/hp-elitebook-840-g8-core-i5-11th-gen',
+    image: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=800&auto=format&fit=crop',
+    bgGradient: 'from-[#425a8b] to-[#1e2a4a]',
+  },
+  {
+    tag: 'BEST SELLER',
+    discount: '-10%',
+    subtitle: 'Executive Carbon Fiber Ultrabook',
+    title: 'Dell Latitude 7420 Carbon',
+    bullets: [
+      'Intel Core i7 11th Gen • 16GB LPDDR4x',
+      '512GB High-Speed M.2 NVMe SSD',
+      '92% Battery Health • 15d Replacement Guarantee',
+    ],
+    price: '৳54,000',
+    originalPrice: '৳59,000',
+    link: '/products/dell-latitude-7420-core-i7-11th-gen-carbon',
+    image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=800&auto=format&fit=crop',
+    bgGradient: 'from-[#2b38d1] to-[#0e224a]',
+  },
+  {
+    tag: 'HOT DEAL',
+    discount: '-12%',
+    subtitle: 'Legendary Multi-Core Workhorse',
+    title: 'ThinkPad T14 Gen 2 Ryzen',
+    bullets: [
+      'AMD Ryzen 5 PRO 5650U 6-Core 12-Thread',
+      'Military-Grade MIL-STD 810H Chassis',
+      '100% Dead-Pixel Free Screen Guarantee',
+    ],
+    price: '৳49,500',
+    originalPrice: '৳55,000',
+    link: '/products/lenovo-thinkpad-t14-gen-2-amd-ryzen-5-pro',
+    image: 'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=800&auto=format&fit=crop',
+    bgGradient: 'from-[#1e293b] to-[#0f172a]',
+  },
+];
 
 export default function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  const active = slides[currentSlide];
+
   return (
-    <section className="relative overflow-hidden bg-radial from-violet-900/10 via-slate-50 to-white pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-slate-100">
-      {/* Background soft ambient accents */}
-      <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Text / Value Prop */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            {/* Value badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-100/80 border border-violet-200 text-violet-800 text-xs font-bold tracking-wide">
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-              <span>100% Tested Pre-Owned Laptops & Accessories</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              Technology You Can <span className="text-violet-700">Trust</span>. Verified Quality for{' '}
-              <span className="bg-linear-to-r from-orange-600 to-violet-700 bg-clip-text text-transparent">
-                Every Workload
-              </span>.
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Explore authentic pre-owned laptops (HP EliteBook, Dell Latitude, Lenovo ThinkPad) and high-speed networking accessories in Bangladesh. Each device undergoes our certified 25-point hardware inspection with dedicated warranty support.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
-              <Link
-                href="/products?category=laptops"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-violet-700 hover:bg-violet-800 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-lg shadow-violet-700/20 transition-all hover:gap-3"
-              >
-                <Laptop className="w-4 h-4" />
-                Browse Pre-Owned Laptops
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              <Link
-                href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm px-6 py-3.5 rounded-xl border border-slate-200 shadow-xs transition-colors"
-              >
-                <MapPin className="w-4 h-4 text-orange-500" />
-                Visit Store in Shahzadpur
-              </Link>
-            </div>
-
-            {/* Quick Guarantees checklist */}
-            <div className="pt-4 grid grid-cols-3 gap-3 border-t border-slate-200/80 text-left">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>25-Point Diagnostic</span>
+    <section className="pt-6 pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Left Large Slider (col-lg-7) */}
+          <div className="lg:col-span-7 flex flex-col">
+            <div className={`relative rounded-3xl overflow-hidden bg-linear-to-r ${active.bgGradient} text-white p-7 sm:p-10 flex-1 flex flex-col justify-between shadow-sm min-h-[380px] sm:min-h-[440px]`}>
+              {/* Background laptop visual */}
+              <div className="absolute right-0 bottom-0 top-0 w-1/2 opacity-30 lg:opacity-60 pointer-events-none overflow-hidden">
+                <Image
+                  src={active.image}
+                  alt={active.title}
+                  fill
+                  className="object-cover object-center translate-x-8 translate-y-4 scale-110"
+                  priority
+                />
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <CheckCircle className="w-4 h-4 text-violet-600 shrink-0" />
-                <span>15d Replacement Warranty</span>
+
+              {/* Top tags */}
+              <div className="relative z-10 flex items-center gap-2 mb-4">
+                <span className="bg-[#fd9636] text-white text-[11px] font-black px-2.5 py-0.5 rounded-md uppercase tracking-wider">
+                  {active.discount}
+                </span>
+                <span className="bg-[#3bb77e] text-white text-[11px] font-black px-2.5 py-0.5 rounded-md uppercase tracking-wider">
+                  {active.tag}
+                </span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <CheckCircle className="w-4 h-4 text-orange-500 shrink-0" />
-                <span>Verified Best Prices</span>
+
+              {/* Main titles */}
+              <div className="relative z-10 max-w-md space-y-2">
+                <h3 className="text-sm sm:text-base font-semibold text-slate-200">
+                  {active.subtitle}
+                </h3>
+                <h1 className="text-2xl sm:text-4xl lg:text-[42px] font-black text-white leading-tight tracking-tight">
+                  {active.title}
+                </h1>
+
+                {/* Bullets */}
+                <ul className="space-y-1.5 py-3 text-xs sm:text-sm text-slate-200">
+                  {active.bullets.map((b, idx) => (
+                    <li key={idx} className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#3bb77e] shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="pt-2 flex items-baseline gap-3">
+                  <span className="text-2xl sm:text-3xl font-black text-white">
+                    {active.price}
+                  </span>
+                  <span className="text-sm font-semibold text-slate-400 line-through">
+                    {active.originalPrice}
+                  </span>
+                </div>
+              </div>
+
+              {/* Buttons & Slide Indicators */}
+              <div className="relative z-10 pt-6 flex flex-wrap items-center justify-between gap-4 mt-auto">
+                <div className="flex items-center gap-3">
+                  <Link
+                    href={active.link}
+                    className="inline-flex items-center gap-2 bg-white text-[#253d4e] hover:bg-[#3bb77e] hover:text-white font-bold text-xs px-6 py-3 rounded-lg shadow-sm transition-all"
+                  >
+                    <span>Shop now</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/products"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#3bb77e] px-4 py-3 transition-colors"
+                  >
+                    Learn more
+                  </Link>
+                </div>
+
+                {/* Dots */}
+                <div className="flex items-center gap-2">
+                  {slides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`h-2.5 rounded-full transition-all ${
+                        currentSlide === idx ? 'w-7 bg-[#3bb77e]' : 'w-2.5 bg-white/40 hover:bg-white/70'
+                      }`}
+                      aria-label={`Slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Product Spotlight Visual */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md bg-white rounded-3xl p-4 sm:p-5 shadow-2xl shadow-violet-900/10 border border-slate-200/80">
-              {/* Product Badge */}
-              <div className="flex items-center justify-between mb-3 pb-3 border-b border-slate-100">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                  <span className="text-xs font-bold text-slate-800">Featured Business Workhorse</span>
-                </div>
-                <span className="text-xs font-extrabold text-violet-700 bg-violet-50 px-2.5 py-0.5 rounded-full border border-violet-100">
-                  Pre-Owned Grade A+
+          {/* Right 4 Small Promo Banners (col-lg-5, 2x2 Grid) */}
+          <div className="lg:col-span-5 grid grid-cols-2 gap-4">
+            {/* Banner 1: Pre-Owned Laptops */}
+            <Link
+              href="/products?category=laptops"
+              className="group p-5 rounded-3xl bg-[#f0e8f6] border border-[#e5d8ee] hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <span className="text-[11px] font-bold text-[#7e7e7e] uppercase tracking-wider block mb-1">
+                  New Arrivals
+                </span>
+                <h4 className="text-sm sm:text-base font-extrabold text-[#253d4e] leading-snug group-hover:text-[#2b38d1] transition-colors">
+                  Laptop Collection
+                </h4>
+                <p className="text-[11px] font-bold text-[#3bb77e] mt-1">100% Tested Lab</p>
+              </div>
+              <div className="mt-4 pt-2">
+                <span className="text-xs font-bold text-[#2b38d1] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Shop Now <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
+            </Link>
 
-              {/* Showcase Image */}
-              <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-slate-100 mb-4">
-                <Image
-                  src="https://images.unsplash.com/photo-1541807084-5c52b6b3adef?q=80&w=800&auto=format&fit=crop"
-                  alt="HP EliteBook 840 G8"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                  100% Tested Lab Certified
-                </div>
-              </div>
-
-              {/* Specs & Pricing */}
+            {/* Banner 2: Routers & Wi-Fi */}
+            <Link
+              href="/products?category=routers"
+              className="group p-5 rounded-3xl bg-[#e6f4f1] border border-[#d2ebe6] hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden"
+            >
               <div>
-                <h3 className="text-base font-bold text-slate-900 mb-1">
-                  HP EliteBook 840 G8 Core i5 11th Gen
-                </h3>
-                <p className="text-xs text-slate-500 mb-3">
-                  All-metal magnesium chassis • Intel Iris Xe • Backlit Keyboard
-                </p>
-
-                <div className="grid grid-cols-2 gap-2 text-xs font-semibold text-slate-700 mb-4 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                  <div className="flex items-center gap-1.5">
-                    <Cpu className="w-3.5 h-3.5 text-violet-600" />
-                    <span>16GB RAM / 512GB SSD</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <BatteryCharging className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>89% Battery Health</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-xs text-slate-400 block font-medium">Special Price</span>
-                    <span className="text-2xl font-black text-slate-900">৳48,500</span>
-                  </div>
-
-                  <Link
-                    href="/products/hp-elitebook-840-g8-core-i5-11th-gen"
-                    className="inline-flex items-center gap-1.5 bg-violet-700 hover:bg-violet-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-xs"
-                  >
-                    View Details
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
+                <span className="text-[11px] font-bold text-[#7e7e7e] uppercase tracking-wider block mb-1">
+                  High-Speed Wi-Fi
+                </span>
+                <h4 className="text-sm sm:text-base font-extrabold text-[#253d4e] leading-snug group-hover:text-[#2b38d1] transition-colors">
+                  Gigabit Routers
+                </h4>
+                <p className="text-[11px] font-bold text-[#3bb77e] mt-1">Dual-Band AC1200</p>
               </div>
-            </div>
+              <div className="mt-4 pt-2">
+                <span className="text-xs font-bold text-[#2b38d1] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Shop Now <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
 
-            {/* Floating Trust Badge */}
-            <div className="absolute -bottom-5 -left-4 sm:-left-6 bg-slate-900 text-white p-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-800">
-              <div className="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center font-black text-sm">
-                AT
+            {/* Banner 3: Keyboards & Mice */}
+            <Link
+              href="/products?category=keyboards"
+              className="group p-5 rounded-3xl bg-[#fdf2e9] border border-[#fae4d3] hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <span className="text-[11px] font-bold text-[#7e7e7e] uppercase tracking-wider block mb-1">
+                  Productivity Gear
+                </span>
+                <h4 className="text-sm sm:text-base font-extrabold text-[#253d4e] leading-snug group-hover:text-[#2b38d1] transition-colors">
+                  Keyboards & Mice
+                </h4>
+                <p className="text-[11px] font-bold text-[#fd9636] mt-1">Wireless & Mechanical</p>
               </div>
-              <div className="text-xs">
-                <p className="font-bold text-white leading-tight">AuthenTech BD Verified</p>
-                <p className="text-[11px] text-slate-400">Siraj Plaza, Shahzadpur</p>
+              <div className="mt-4 pt-2">
+                <span className="text-xs font-bold text-[#2b38d1] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Shop Now <ArrowRight className="w-3.5 h-3.5" />
+                </span>
               </div>
-            </div>
+            </Link>
+
+            {/* Banner 4: CCTV Security */}
+            <Link
+              href="/products?category=cctv"
+              className="group p-5 rounded-3xl bg-[#eaf3fb] border border-[#d5e7f7] hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <span className="text-[11px] font-bold text-[#7e7e7e] uppercase tracking-wider block mb-1">
+                  24/7 Security
+                </span>
+                <h4 className="text-sm sm:text-base font-extrabold text-[#253d4e] leading-snug group-hover:text-[#2b38d1] transition-colors">
+                  CCTV Cameras
+                </h4>
+                <p className="text-[11px] font-bold text-[#3bb77e] mt-1">Smart 360 & Night Vision</p>
+              </div>
+              <div className="mt-4 pt-2">
+                <span className="text-xs font-bold text-[#2b38d1] inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Shop Now <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

@@ -90,7 +90,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         `📦 *Product:* ${singleProduct.name}\n` +
         `💰 *Price:* ৳${singleProduct.price.toLocaleString('en-BD')}\n` +
         `⚙️ *Condition:* ${singleProduct.condition}\n` +
-        `🔗 *Link:* ${typeof window !== 'undefined' ? window.location.origin : ''}/products/${singleProduct.slug}\n\n` +
+        `🔗 *Link:* https://authentechbd.com/products/${singleProduct.slug}\n\n` +
         `Please confirm availability, condition details, and store pickup/courier process.`
       );
       return `https://wa.me/${phone}?text=${text}`;
